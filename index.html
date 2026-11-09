@@ -1,0 +1,772 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Сайты на Tilda и на коде, чат-боты - Игорь Ряузов</title>
+  <meta name="description" content="Сайты на Tilda и на коде, чат-боты для записи и оплаты. Лендинг от 5 000 ₽, бот от 6 000 ₽. Работаю один, отвечаю сам.">
+  <script>document.documentElement.classList.add('js');</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700;800&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0E0723;
+      --bg-2: #170C36;
+      --ink: #F4EFFF;
+      --muted: #B9B0D6;
+      --line: rgba(255, 255, 255, .14);
+      --violet: #7B4DFF;
+      --plum: #4B2C7A;
+      --pink: #FF4F9A;
+      --amber: #FFC857;
+      --display: "Unbounded", "Arial Black", system-ui, sans-serif;
+      --sans: "Manrope", system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
+      --gutter: clamp(20px, 5vw, 56px);
+    }
+
+    @property --a { syntax: "<angle>"; initial-value: 0deg; inherits: false; }
+
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 84px; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: var(--sans);
+      font-size: 1.0625rem;
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+    img, svg { display: block; max-width: 100%; }
+    a { color: inherit; }
+    a:focus-visible, button:focus-visible, summary:focus-visible {
+      outline: 3px solid var(--amber);
+      outline-offset: 3px;
+      border-radius: 6px;
+    }
+    .wrap { width: 100%; max-width: 1180px; margin-inline: auto; padding-inline: var(--gutter); }
+
+    /* ===== Шапка ===== */
+    .top {
+      position: sticky; top: 0; z-index: 20;
+      background: rgba(14, 7, 35, .72);
+      -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--line);
+    }
+    .top__in { display: flex; align-items: center; justify-content: space-between; padding-block: 16px; }
+    .top__name { font-family: var(--display); font-weight: 700; font-size: .95rem; text-decoration: none; }
+    .top__link {
+      font-weight: 600; font-size: .95rem; text-decoration: none;
+      padding: 9px 20px; border: 1px solid var(--line); border-radius: 999px;
+      transition: background-color .25s, border-color .25s;
+    }
+    .top__link:hover { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+
+    /* ===== Первый экран ===== */
+    .hero { position: relative; overflow: hidden; }
+    .blob { position: absolute; pointer-events: none; transform: translate3d(0, var(--py, 0), 0); }
+    .blob i { display: block; width: 100%; height: 100%; border-radius: 50%; }
+    .blob--1 { width: 640px; height: 640px; left: -220px; top: -160px; }
+    .blob--1 i { background: radial-gradient(circle, rgba(123, 77, 255, .55), transparent 68%); animation: drift 16s ease-in-out infinite alternate; }
+    .blob--2 { width: 560px; height: 560px; right: -160px; top: 80px; }
+    .blob--2 i { background: radial-gradient(circle, rgba(255, 79, 154, .42), transparent 68%); animation: drift 19s ease-in-out infinite alternate-reverse; }
+    .blob--3 { width: 420px; height: 420px; left: 38%; bottom: -200px; }
+    .blob--3 i { background: radial-gradient(circle, rgba(255, 200, 87, .26), transparent 68%); animation: drift 22s ease-in-out infinite alternate; }
+    @keyframes drift {
+      from { transform: translate(0, 0) scale(1); }
+      to   { transform: translate(60px, 40px) scale(1.12); }
+    }
+
+    .hero__grid {
+      position: relative;
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(0, .85fr);
+      gap: clamp(24px, 5vw, 64px);
+      align-items: center;
+      min-height: min(86vh, 760px);
+      padding-block: clamp(32px, 6vw, 72px);
+    }
+    .hero__title {
+      margin: 0 0 24px;
+      font-family: var(--display);
+      font-weight: 700;
+      font-size: clamp(1.7rem, 4.2vw, 3.3rem);
+      line-height: 1.12;
+      letter-spacing: -.015em;
+      overflow-wrap: anywhere;
+    }
+    .w { display: inline-block; overflow: hidden; vertical-align: top; padding-bottom: .08em; }
+    .w > span { display: inline-block; }
+    .js .w > span { transform: translateY(115%); animation: word .8s cubic-bezier(.2, .8, .2, 1) forwards; animation-delay: calc(var(--i) * 70ms + 150ms); }
+    @keyframes word { to { transform: none; } }
+    .hero__title .grad {
+      background: linear-gradient(90deg, var(--violet), var(--pink) 55%, var(--amber));
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+      background-size: 200% 100%; animation: sheen 6s linear infinite;
+    }
+    @keyframes sheen { to { background-position: -200% 0; } }
+
+    .hero__lead { margin: 0 0 36px; max-width: 48ch; color: var(--muted); font-size: 1.125rem; }
+    .js .hero__lead, .js .hero__cta { opacity: 0; animation: fade .8s ease-out forwards; }
+    .js .hero__lead { animation-delay: .85s; }
+    .js .hero__cta { animation-delay: 1.05s; }
+    @keyframes fade { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+
+    .button {
+      display: inline-flex; align-items: center; gap: 12px;
+      padding: 16px 30px;
+      font-weight: 700; text-decoration: none; color: #fff;
+      background: linear-gradient(100deg, var(--violet), var(--pink));
+      border-radius: 999px;
+      box-shadow: 0 12px 34px -8px rgba(255, 79, 154, .65);
+      transition: transform .25s, box-shadow .25s;
+    }
+    .button svg { width: 18px; height: 18px; transition: transform .25s; }
+    .button:hover { transform: translateY(-3px); box-shadow: 0 18px 40px -8px rgba(255, 79, 154, .8); }
+    .button:hover svg { transform: translateX(4px); }
+    .button--ghost { background: transparent; border: 1px solid var(--line); box-shadow: none; }
+    .button--ghost:hover { background: var(--ink); color: var(--bg); border-color: var(--ink); box-shadow: none; }
+
+    /* Фото в вращающейся рамке */
+    .stage { position: relative; display: flex; flex-direction: column; align-items: center; gap: 30px; padding: 28px 0; perspective: 900px; }
+    .photo-tilt { transform: rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)); transition: transform .2s ease-out; transform-style: preserve-3d; }
+    .photo-ring {
+      padding: 5px; border-radius: 34px;
+      background: conic-gradient(from var(--a), var(--violet), var(--pink), var(--amber), var(--violet));
+      animation: spin 7s linear infinite;
+      box-shadow: 0 30px 80px -20px rgba(123, 77, 255, .7);
+    }
+    @keyframes spin { to { --a: 360deg; } }
+    .photo { width: min(78vw, 330px); aspect-ratio: 375 / 400; object-fit: cover; border-radius: 30px; background: var(--plum); }
+
+    .chips { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; max-width: 380px; }
+    .chip { transform: translate3d(0, var(--py, 0), 0); }
+    .chip span {
+      display: block; padding: 10px 16px; font-size: .875rem; font-weight: 700; white-space: nowrap;
+      background: rgba(23, 12, 54, .82); border: 1px solid var(--line); border-radius: 999px;
+      -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
+      animation: bob 5s ease-in-out infinite alternate;
+    }
+    .chip span::before {
+      content: ""; display: inline-block; width: 8px; height: 8px; margin-right: 10px;
+      border-radius: 50%; background: var(--amber); vertical-align: 1px;
+    }
+    .chip:nth-child(even) span { animation-delay: -1.6s; }
+    .chip:nth-child(3n) span { animation-delay: -3s; }
+    @keyframes bob { from { transform: translateY(-6px); } to { transform: translateY(6px); } }
+
+    /* ===== Бегущая строка ===== */
+    .marquee { border-block: 1px solid var(--line); background: var(--bg-2); overflow: hidden; padding-block: 22px; }
+    .marquee__track { display: flex; width: max-content; animation: run 40s linear infinite; }
+    .marquee:hover .marquee__track { animation-play-state: paused; }
+    .marquee__group { display: flex; align-items: center; }
+    .marquee__item {
+      margin: 0; display: flex; align-items: center; font-family: var(--display); font-weight: 800; white-space: nowrap;
+      font-size: clamp(1.4rem, 3.4vw, 2.5rem); line-height: 1.2;
+      color: transparent; -webkit-text-stroke: 1.5px var(--ink);
+    }
+    .marquee__item:nth-child(even) { color: var(--ink); -webkit-text-stroke: 0; }
+    .marquee__item::after {
+      content: ""; flex: none; width: .65em; height: .65em; margin-inline: 36px;
+      background: var(--amber); animation: turn 8s linear infinite;
+      clip-path: polygon(50% 0, 62% 38%, 100% 50%, 62% 62%, 50% 100%, 38% 62%, 0 50%, 38% 38%);
+    }
+    @keyframes run { to { transform: translateX(-50%); } }
+    @keyframes turn { to { transform: rotate(360deg); } }
+
+    /* ===== Секции ===== */
+    .section { padding-block: clamp(44px, 6.5vw, 84px); position: relative; }
+    .section--alt { background: var(--bg-2); border-top: 1px solid var(--line); }
+    .section__title {
+      margin: 0 0 clamp(28px, 4vw, 48px);
+      font-family: var(--display); font-weight: 700;
+      font-size: clamp(1.4rem, 3.2vw, 2.4rem); line-height: 1.18; letter-spacing: -.01em;
+      overflow-wrap: anywhere; max-width: 24ch;
+    }
+    .section__title--wide { max-width: 30ch; }
+
+    /* Появление при прокрутке */
+    .js .reveal { opacity: 0; transform: translateY(28px); transition: opacity .8s ease-out, transform .8s cubic-bezier(.2, .8, .2, 1); transition-delay: var(--d, 0ms); }
+    .js .reveal.is-in { opacity: 1; transform: none; }
+
+    /* ===== Личка против бота ===== */
+    .problem__text { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px clamp(24px, 5vw, 64px); margin-bottom: 36px; }
+    .problem__text p { margin: 0; color: var(--muted); font-size: 1.0625rem; max-width: 52ch; }
+    .problem__text p:last-child { color: var(--ink); }
+    .chats { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
+    .chat { display: flex; flex-direction: column; gap: 10px; padding: clamp(20px, 3vw, 32px); border-radius: 28px; min-height: 340px; }
+    .chat--now { background: var(--bg-2); border: 1px solid var(--line); }
+    .chat--bot { background: linear-gradient(135deg, #3B1D8F 0%, #6A3BE8 70%, #B23FD6 100%); color: #fff; }
+    .chat__title { margin: 0 0 8px; font-family: var(--display); font-weight: 700; font-size: .95rem; }
+    .bub { max-width: 88%; padding: 10px 15px; border-radius: 18px; font-size: .9688rem; line-height: 1.4; }
+    .js .bub { opacity: 0; transform: translateY(10px); }
+    .js .is-in .bub { animation: pop .5s ease-out forwards; animation-delay: calc(var(--k) * 450ms + 400ms); }
+    @keyframes pop { to { opacity: 1; transform: none; } }
+    .bub--in { align-self: flex-start; background: rgba(255, 255, 255, .1); border-bottom-left-radius: 6px; }
+    .bub--out { align-self: flex-end; background: #34205F; border-bottom-right-radius: 6px; }
+    .chat--bot .bub--in { background: rgba(255, 255, 255, .18); }
+    .bub--pick { align-self: flex-end; background: #fff; color: #2A1370; font-weight: 700; border-bottom-right-radius: 6px; padding-inline: 18px; }
+    .picks { display: flex; gap: 8px; align-self: flex-end; }
+    .chats__note { margin: 16px 0 0; color: var(--muted); font-size: .9375rem; }
+
+    /* ===== Цены ===== */
+    .prices { list-style: none; margin: 0; padding: 0; }
+    .price {
+      display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 12px 32px; align-items: center;
+      padding-block: 28px; border-top: 1px solid var(--line);
+    }
+    .price:last-child { border-bottom: 1px solid var(--line); }
+    .price__name { margin: 0 0 8px; font-family: var(--display); font-weight: 700; font-size: clamp(1.1rem, 2.1vw, 1.5rem); line-height: 1.25; overflow-wrap: anywhere; }
+    .price__text { margin: 0; color: var(--muted); max-width: 58ch; }
+    .price__text a { color: var(--ink); text-underline-offset: 3px; }
+    .price__sum {
+      margin: 0; text-align: right; white-space: nowrap;
+      font-family: var(--display); font-weight: 800; font-size: clamp(1.5rem, 3.4vw, 2.5rem); line-height: 1;
+      background: linear-gradient(90deg, var(--violet), var(--pink) 60%, var(--amber));
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+    }
+    .price__sum small { display: block; margin-bottom: 8px; font-family: var(--sans); font-weight: 600; font-size: .9375rem; -webkit-text-fill-color: var(--muted); color: var(--muted); }
+    .prices__note { margin: 20px 0 0; color: var(--muted); }
+
+    .sub-title { margin: 64px 0 20px; font-family: var(--display); font-weight: 700; font-size: clamp(1.1rem, 2vw, 1.4rem); line-height: 1.3; }
+    .price__sum--text { font-size: clamp(1.2rem, 2.4vw, 1.7rem); }
+    .versus { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
+    .versus__col { padding: clamp(20px, 3vw, 30px); border: 1px solid var(--line); border-radius: 24px; background: rgba(255, 255, 255, .03); }
+    .versus__col--code { background: linear-gradient(135deg, rgba(123, 77, 255, .3), rgba(255, 79, 154, .2)); border-color: rgba(123, 77, 255, .6); }
+    .versus h4 { margin: 0 0 14px; font-family: var(--display); font-weight: 700; font-size: 1.15rem; }
+    .versus ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+    .versus li { position: relative; padding-left: 22px; }
+    .versus li::before { content: ""; position: absolute; left: 0; top: .6em; width: 9px; height: 9px; border-radius: 50%; background: var(--amber); }
+    .costs { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 28px; }
+    .cost { padding-left: 20px; border-left: 3px solid var(--violet); }
+    .cost:nth-child(2) { border-left-color: var(--pink); }
+    .cost:nth-child(3) { border-left-color: var(--amber); }
+    .cost h4 { margin: 0 0 4px; font-family: var(--display); font-weight: 700; font-size: .95rem; }
+    .cost__sum { margin: 0 0 8px; font-weight: 700; color: var(--amber); }
+    .cost p:last-child { margin: 0; color: var(--muted); font-size: .9375rem; line-height: 1.55; }
+
+    /* Калькулятор */
+    .calc__lead { margin: -8px 0 28px; color: var(--muted); max-width: 56ch; }
+    .calc__grid { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: 20px; align-items: stretch; }
+    .calc__opts { display: grid; gap: 12px; }
+    .opt {
+      display: flex; align-items: center; gap: 14px; width: 100%; padding: 18px 22px; text-align: left;
+      font: inherit; font-weight: 600; color: var(--ink); cursor: pointer;
+      background: rgba(255, 255, 255, .03); border: 1px solid var(--line); border-radius: 18px;
+      transition: background-color .25s, border-color .25s, transform .25s;
+    }
+    .opt:hover { transform: translateX(4px); border-color: rgba(255, 255, 255, .35); }
+    .opt::before {
+      content: ""; flex: none; width: 22px; height: 22px; border-radius: 50%; border: 2px solid var(--muted);
+      transition: background .25s, border-color .25s;
+    }
+    .opt[aria-pressed="true"] { background: rgba(123, 77, 255, .22); border-color: var(--violet); }
+    .opt[aria-pressed="true"]::before { border-color: transparent; background: linear-gradient(135deg, var(--violet), var(--pink)); box-shadow: inset 0 0 0 5px transparent; }
+    .calc__out {
+      display: flex; flex-direction: column; justify-content: center; gap: 6px; padding: clamp(24px, 3vw, 36px); border-radius: 28px;
+      background: linear-gradient(135deg, #3B1D8F 0%, #6A3BE8 70%, #B23FD6 100%); color: #fff;
+    }
+    .calc__label { font-weight: 600; font-size: .9375rem; opacity: .85; }
+    .calc__sum { font-family: var(--display); font-weight: 800; font-size: clamp(1.8rem, 4vw, 2.8rem); line-height: 1.15; overflow-wrap: anywhere; }
+    .calc__hint { margin: 0 0 18px; font-size: .9375rem; opacity: .85; }
+    .calc__out .button { align-self: flex-start; background: #fff; color: #2A1370; box-shadow: none; }
+    .calc__note { margin: 16px 0 0; color: var(--muted); font-size: .9375rem; max-width: 70ch; }
+
+    /* ===== Кейс ===== */
+    .case { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: clamp(24px, 5vw, 64px); align-items: start; }
+    .case__name { margin: 0 0 12px; font-family: var(--display); font-weight: 700; font-size: clamp(1.15rem, 2.2vw, 1.6rem); line-height: 1.25; overflow-wrap: anywhere; }
+    .case__lead { margin: 0; color: var(--muted); max-width: 54ch; }
+    .case__list { list-style: none; margin: 24px 0 32px; padding: 0; display: grid; gap: 14px; }
+    .case__list li { position: relative; padding-left: 30px; color: var(--ink); max-width: 56ch; }
+    .case__list li::before { content: ""; position: absolute; left: 0; top: .55em; width: 12px; height: 12px; border-radius: 50%; background: linear-gradient(135deg, var(--violet), var(--pink)); }
+    .quote {
+      position: relative; margin: 0; padding: clamp(28px, 3.6vw, 44px); border-radius: 28px; color: #fff;
+      background: linear-gradient(135deg, #3B1D8F 0%, #6A3BE8 70%, #B23FD6 100%);
+    }
+    .quote__mark { width: 40px; height: 40px; margin-bottom: 16px; color: var(--amber); }
+    .quote blockquote { margin: 0; }
+    .quote p { margin: 0 0 24px; font-size: 1.0625rem; line-height: 1.65; }
+    .quote figcaption { font-size: .9375rem; line-height: 1.45; }
+    .quote strong { display: block; font-family: var(--display); font-size: 1rem; }
+
+    /* ===== Шаги ===== */
+    .steps { --p: 0; list-style: none; margin: 0; padding: 0; position: relative; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 24px; }
+    .steps::before, .steps::after { content: ""; position: absolute; left: 0; top: 24px; height: 3px; border-radius: 3px; }
+    .steps::before { right: 0; background: var(--line); }
+    .steps::after { width: calc(var(--p) * 100%); background: linear-gradient(90deg, var(--violet), var(--pink), var(--amber)); }
+    .step { position: relative; padding-top: 64px; }
+    .step__n {
+      position: absolute; top: 0; left: 0; width: 50px; height: 50px; display: grid; place-items: center;
+      font-family: var(--display); font-weight: 700; background: var(--bg-2); border: 2px solid var(--violet); border-radius: 50%;
+      transition: background-color .4s, border-color .4s;
+    }
+    .step.is-in .step__n { background: linear-gradient(135deg, var(--violet), var(--pink)); border-color: transparent; }
+    .step h3 { margin: 0 0 8px; font-family: var(--display); font-weight: 700; font-size: 1.05rem; }
+    .step p { margin: 0; color: var(--muted); }
+    .steps__note { margin: 32px 0 0; color: var(--muted); }
+
+    /* ===== Вопросы ===== */
+    .faq { max-width: 860px; }
+    .faq details { border-top: 1px solid var(--line); }
+    .faq details:last-child { border-bottom: 1px solid var(--line); }
+    .faq summary {
+      position: relative; list-style: none; cursor: pointer; padding: 22px 48px 22px 0;
+      font-family: var(--display); font-weight: 700; font-size: clamp(1rem, 1.8vw, 1.2rem); line-height: 1.35;
+    }
+    .faq summary::-webkit-details-marker { display: none; }
+    .faq summary::after {
+      content: ""; position: absolute; right: 6px; top: 50%; width: 12px; height: 12px;
+      border-right: 3px solid var(--pink); border-bottom: 3px solid var(--pink);
+      transform: translateY(-70%) rotate(45deg); transition: transform .3s;
+    }
+    .faq details[open] summary::after { transform: translateY(-30%) rotate(-135deg); }
+    .faq details p { margin: 0 0 24px; color: var(--muted); max-width: 62ch; }
+
+    /* ===== Контакты ===== */
+    .contact { position: relative; overflow: hidden; }
+    .contact::before { content: ""; position: absolute; width: 700px; height: 700px; right: -260px; top: -300px; background: radial-gradient(circle, rgba(123, 77, 255, .4), transparent 66%); pointer-events: none; }
+    .contact__lead { margin: 0 0 32px; max-width: 48ch; color: var(--muted); font-size: 1.125rem; }
+    .pills { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 16px; position: relative; }
+    .pill {
+      display: inline-flex; flex-direction: column; gap: 2px; min-width: 200px; padding: 18px 26px; text-decoration: none;
+      border: 1px solid var(--line); border-radius: 22px; background: rgba(255, 255, 255, .03);
+      transition: transform .25s, background-color .25s, border-color .25s;
+    }
+    .pill b { font-family: var(--display); font-size: 1.05rem; font-weight: 700; display: flex; justify-content: space-between; align-items: center; gap: 16px; }
+    .pill svg { width: 18px; height: 18px; transition: transform .25s; }
+    .pill small { color: var(--muted); font-size: .8125rem; }
+    .pill:hover { transform: translateY(-4px); background: linear-gradient(120deg, rgba(123, 77, 255, .5), rgba(255, 79, 154, .5)); border-color: transparent; }
+    .pill:hover svg { transform: translate(3px, -3px); }
+    .pill--soon { opacity: .6; cursor: default; border-style: dashed; }
+    .pill--soon:hover { transform: none; background: rgba(255, 255, 255, .03); border-color: var(--line); }
+
+    /* ===== Подвал ===== */
+    .footer { padding-block: 40px 56px; border-top: 1px solid var(--line); color: var(--muted); font-size: .9375rem; }
+    .footer__grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 32px; }
+    .footer h4 { margin: 0 0 10px; font-family: var(--display); font-weight: 700; font-size: .875rem; color: var(--ink); }
+    .footer p { margin: 0 0 4px; }
+    .footer ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
+    .footer a { text-underline-offset: 3px; }
+    .footer a:hover { color: var(--ink); }
+    .footer__copy { margin: 32px 0 0; }
+
+    /* ===== Телефон ===== */
+    @media (max-width: 860px) {
+      .hero__grid { grid-template-columns: minmax(0, 1fr); min-height: 0; }
+      .stage { padding: 12px 0 40px; }
+      .problem__text, .chats { grid-template-columns: minmax(0, 1fr); }
+      .chat { min-height: 0; }
+      .price { grid-template-columns: minmax(0, 1fr); }
+      .price__sum { text-align: left; }
+      .price__sum small { display: inline; margin: 0 8px 0 0; }
+      .versus { grid-template-columns: minmax(0, 1fr); }
+      .calc__grid { grid-template-columns: minmax(0, 1fr); }
+      .case { grid-template-columns: minmax(0, 1fr); }
+      .steps { grid-template-columns: minmax(0, 1fr); gap: 8px; padding-left: 4px; }
+      .steps::before, .steps::after { left: 24px; top: 0; width: 3px; }
+      .steps::before { right: auto; bottom: 0; }
+      .steps::after { height: calc(var(--p) * 100%); bottom: auto; }
+      .step { padding: 0 0 24px 76px; }
+      .pill { min-width: 0; flex: 1 1 100%; }
+      .footer__grid { grid-template-columns: minmax(0, 1fr); }
+    }
+
+    /* ===== Уменьшить движение ===== */
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { animation: none !important; transition: none !important; }
+      .js .w > span, .js .hero__lead, .js .hero__cta, .js .reveal, .js .bub { opacity: 1; transform: none; }
+      .marquee__track { flex-wrap: wrap; width: auto; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="top">
+    <div class="wrap top__in">
+      <a class="top__name" href="#">Игорь Ряузов</a>
+      <a class="top__link" href="#kontakty">Написать</a>
+    </div>
+  </header>
+
+  <main>
+    <!-- Первый экран -->
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="blob blob--1" data-speed="-0.06" aria-hidden="true"><i></i></div>
+      <div class="blob blob--2" data-speed="0.05" aria-hidden="true"><i></i></div>
+      <div class="blob blob--3" data-speed="-0.04" aria-hidden="true"><i></i></div>
+
+      <div class="wrap hero__grid">
+        <div class="hero__text">
+          <h1 class="hero__title" id="hero-title">
+            <span class="w"><span style="--i:0">Сайты</span></span>
+            <span class="w"><span style="--i:1">на</span></span>
+            <span class="w"><span style="--i:2">Tilda</span></span>
+            <span class="w"><span style="--i:3">и</span></span>
+            <span class="w"><span style="--i:4">на</span></span>
+            <span class="w"><span style="--i:5" class="grad">коде,</span></span>
+            <span class="w"><span style="--i:6">чат-боты</span></span>
+            <span class="w"><span style="--i:7">для</span></span>
+            <span class="w"><span style="--i:8">мастеров</span></span>
+          </h1>
+          <p class="hero__lead">Лендинг на Tilda от 5 000 ₽, бот с записью и оплатой от 6 000 ₽. Нужен уникальный дизайн с анимациями - пишу сайт кодом. Работаю один, отвечаю сам.</p>
+          <a class="button hero__cta" href="#kontakty">
+            Обсудить задачу
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+        </div>
+
+        <div class="stage" id="stage">
+          <div class="photo-tilt" id="tilt">
+            <div class="photo-ring">
+              <img class="photo" src="assets/foto-igor.png" width="375" height="400" alt="Игорь Ряузов в тёмном костюме и синем галстуке">
+            </div>
+          </div>
+          <div class="chips">
+            <div class="chip" data-speed="-0.05"><span>Tilda</span></div>
+            <div class="chip" data-speed="0.04"><span>Salebot</span></div>
+            <div class="chip" data-speed="-0.03"><span>Telegram</span></div>
+            <div class="chip" data-speed="0.05"><span>MAX</span></div>
+            <div class="chip" data-speed="-0.04"><span>ВКонтакте</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Бегущая строка (вторая копия добавляется скриптом для бесшовной петли) -->
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee__track">
+        <div class="marquee__group">
+          <p class="marquee__item">Лендинг на Tilda</p>
+          <p class="marquee__item">Многостраничный сайт</p>
+          <p class="marquee__item">Бот записи</p>
+          <p class="marquee__item">Бот с оплатой</p>
+          <p class="marquee__item">Salebot</p>
+          <p class="marquee__item">Telegram</p>
+          <p class="marquee__item">MAX</p>
+          <p class="marquee__item">VK</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Личка против бота -->
+    <section class="section" id="zachem" aria-labelledby="zachem-title">
+      <div class="wrap">
+        <h2 class="section__title section__title--wide reveal" id="zachem-title">Если запись и оплату Вы принимаете в личных сообщениях</h2>
+        <div class="chats reveal">
+          <div class="chat chat--now">
+            <p class="chat__title">Сейчас, в личке</p>
+            <div class="bub bub--in" style="--k:0">Здравствуйте, как записаться?</div>
+            <div class="bub bub--out" style="--k:1">Напишите удобный день</div>
+            <div class="bub bub--in" style="--k:2">Среда</div>
+            <div class="bub bub--out" style="--k:3">Могу в 13:00. Реквизиты: ••••</div>
+            <div class="bub bub--in" style="--k:4">Перевела, скрин</div>
+          </div>
+          <div class="chat chat--bot">
+            <p class="chat__title">С ботом</p>
+            <div class="bub bub--in" style="--k:0">Выберите день и время:</div>
+            <div class="picks"><div class="bub bub--pick" style="--k:1">ср</div><div class="bub bub--pick" style="--k:2">13:00</div></div>
+            <div class="bub bub--in" style="--k:4">Готово. Оплата и чек в этом же чате</div>
+          </div>
+        </div>
+        <p class="chats__note reveal">Схема для примера, не реальная переписка.</p>
+      </div>
+    </section>
+
+    <!-- Цены -->
+    <section class="section section--alt" id="ceny" aria-labelledby="ceny-title">
+      <div class="wrap">
+        <h2 class="section__title reveal" id="ceny-title">Три варианта, начните с самого простого</h2>
+        <ul class="prices">
+          <li class="price reveal">
+            <div>
+              <h3 class="price__name">Лендинг на Tilda</h3>
+              <p class="price__text">Одна страница под одну услугу: что входит, цена, ответы на вопросы, форма заявки. Структуру и тексты собираем по Вашему брифу. Есть мобильная версия.</p>
+            </div>
+            <p class="price__sum"><small>от</small>5 000 ₽</p>
+          </li>
+          <li class="price reveal" style="--d:100ms">
+            <div>
+              <h3 class="price__name">Многостраничный сайт на Tilda</h3>
+              <p class="price__text">Несколько страниц: услуги, о Вас, контакты, при необходимости блог. Число страниц и итоговая цена зависят от брифа, называю их до начала работы.</p>
+            </div>
+            <p class="price__sum"><small>от</small>13 000 ₽</p>
+          </li>
+          <li class="price reveal" style="--d:200ms">
+            <div>
+              <h3 class="price__name">Бот в Telegram, MAX или ВКонтакте</h3>
+              <p class="price__text">Запись клиентов или приём оплаты с выдачей купленного. Собираю на Salebot и Mavibot, сервер не нужен. Цена и состав по <a href="https://kwork.ru/script-programming/55146722/sozdam-telegram-bota-s-priyomom-oplaty-i-avtovydachey-produkta" target="_blank" rel="noopener">карточке на Kwork</a>.</p>
+            </div>
+            <p class="price__sum"><small>от</small>6 000 ₽</p>
+          </li>
+          <li class="price reveal" style="--d:300ms">
+            <div>
+              <h3 class="price__name">Сайт на коде</h3>
+              <p class="price__text">Уникальный дизайн, анимации, любые блоки, без конструктора и ежемесячной платы за него. Этот сайт сделан именно так. Размещаю бесплатно на GitHub Pages, свой домен подключается по желанию.</p>
+            </div>
+            <p class="price__sum price__sum--text"><small>цена</small>после брифа</p>
+          </li>
+        </ul>
+
+        <h3 class="sub-title reveal">Tilda или код: что выбрать</h3>
+        <div class="versus">
+          <div class="versus__col reveal">
+            <h4>Tilda</h4>
+            <ul>
+              <li>Дешевле и быстрее, цены в списке выше</li>
+              <li>Вы сами правите тексты в конструкторе</li>
+              <li>Подходит для лендинга и небольшого сайта</li>
+              <li>Платный тариф Tilda на Вас, от 500 ₽ в месяц</li>
+            </ul>
+          </div>
+          <div class="versus__col versus__col--code reveal" style="--d:100ms">
+            <h4>Код</h4>
+            <ul>
+              <li>Дизайн только под Вас, не шаблон</li>
+              <li>Анимации и нестандартные блоки</li>
+              <li>Хостинг бесплатный, надписей конструктора нет</li>
+              <li>Правки вношу я, Вам не нужно разбираться в конструкторе</li>
+            </ul>
+          </div>
+        </div>
+
+        <h3 class="sub-title reveal">Подберите вариант за минуту</h3>
+        <p class="calc__lead reveal">Отметьте, что нужно. Покажу ориентир по начальным ценам, точную цену называю после брифа.</p>
+        <div class="calc__grid reveal" id="calc">
+          <div class="calc__opts" role="group" aria-label="Что нужно">
+            <button type="button" class="opt" data-group="site" data-price="5000" aria-pressed="false">Страница о себе и услугах</button>
+            <button type="button" class="opt" data-group="site" data-price="13000" aria-pressed="false">Несколько страниц: услуги, о Вас, контакты</button>
+            <button type="button" class="opt" data-group="bot" data-price="6000" aria-pressed="false">Запись клиентов без переписки</button>
+            <button type="button" class="opt" data-group="bot" data-price="6000" aria-pressed="false">Приём оплаты с выдачей купленного</button>
+          </div>
+          <div class="calc__out" aria-live="polite">
+            <span class="calc__label">Ориентир</span>
+            <span class="calc__sum" id="calc-sum">выберите</span>
+            <p class="calc__hint" id="calc-hint">Отметьте хотя бы один пункт</p>
+            <a class="button" href="#kontakty">Обсудить этот вариант</a>
+          </div>
+        </div>
+        <p class="calc__note reveal">Это сумма начальных цен: лендинг от 5 000 ₽, сайт от 13 000 ₽, бот от 6 000 ₽. Бот с записью и оплатой считается один раз.</p>
+
+      </div>
+    </section>
+
+    <!-- Кейс -->
+    <section class="section" id="keys" aria-labelledby="keys-title">
+      <div class="wrap">
+        <h2 class="section__title section__title--wide reveal" id="keys-title">Первый кейс: сайт для цветочного магазина в Перми</h2>
+        <div class="case">
+          <div class="reveal">
+            <h3 class="case__name">Сайт магазина «Живые цветы»</h3>
+            <p class="case__lead">Магазину нужен был сайт, на котором покупатель видит букеты и цены, выбирает подходящий и сразу оформляет заказ. Я собрал его от структуры и текстов до публикации.</p>
+            <ul class="case__list">
+              <li>Страница с букетами, ценами, подбором по поводу, цвету и бюджету, районами доставки, отзывами и картой.</li>
+              <li>Окно заказа: покупатель проверяет состав, оставляет телефон и отмечает согласие на обработку данных.</li>
+              <li>Мобильная версия, настройка для поиска и счётчик посещений.</li>
+              <li>Политика обработки данных, согласие и баннер cookie, счётчик включается только после согласия.</li>
+              <li>В дополнение к сайту: свой бот в MAX, через него заказ приходит сотруднику магазина сообщением с составом и контактом покупателя.</li>
+            </ul>
+            <a class="button button--ghost" href="https://ryauzoff.github.io/zhivye-cvety/" target="_blank" rel="noopener">
+              Открыть сайт магазина
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg>
+            </a>
+          </div>
+          <figure class="quote reveal" style="--d:120ms">
+            <svg class="quote__mark" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M4 17.5C4 12.4 6.6 8.8 11 7.3l.7 1.5C9 9.9 7.7 11.7 7.4 14H11v6H4v-2.5zm9 0c0-5.1 2.6-8.7 7-10.2l.7 1.5c-2.7 1.1-4 2.9-4.3 5.2H20v6h-7v-2.5z"/></svg>
+            <blockquote>
+              <p>«Хотела сайт „для галочки“ - получила инструмент продаж. Букеты, цены, выбор по поводу и бюджету - всё на виду. Заказ приходит в MAX с составом и телефоном, так что я не трачу ни минуты на уточнения. Клиенты довольны, что быстро, я довольна, что удобно. Если вы ищете человека, который сделает не „красиво“, а „работающе“ - это он. Рекомендую без оговорок»</p>
+            </blockquote>
+            <figcaption><strong>Екатерина</strong>Управляющая магазина «Живые цветы» в г. Пермь</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- Шаги -->
+    <section class="section section--alt" id="kak" aria-labelledby="kak-title">
+      <div class="wrap">
+        <h2 class="section__title reveal" id="kak-title">Четыре шага</h2>
+        <ol class="steps" id="steps">
+          <li class="step reveal"><span class="step__n" aria-hidden="true">1</span>
+            <h3>Бриф</h3>
+            <p>Задаю вопросы о Вашей услуге, клиентах и о том, что должна делать страница.</p></li>
+          <li class="step reveal" style="--d:100ms"><span class="step__n" aria-hidden="true">2</span>
+            <h3>Структура и тексты</h3>
+            <p>Показываю до сборки, правите на этом этапе.</p></li>
+          <li class="step reveal" style="--d:200ms"><span class="step__n" aria-hidden="true">3</span>
+            <h3>Сборка</h3>
+            <p>Собираю в Tilda или пишу кодом, Вы смотрите черновик по ссылке.</p></li>
+          <li class="step reveal" style="--d:300ms"><span class="step__n" aria-hidden="true">4</span>
+            <h3>Правки и запуск</h3>
+            <p>Исправляю замечания и публикую.</p></li>
+        </ol>
+        <p class="steps__note reveal">Условия и оплату согласуем в начале, до работы.</p>
+      </div>
+    </section>
+
+    <!-- Вопросы и ответы -->
+    <section class="section" id="voprosy" aria-labelledby="voprosy-title">
+      <div class="wrap">
+        <h2 class="section__title reveal" id="voprosy-title">Вопросы и ответы</h2>
+        <div class="faq reveal">
+          <details>
+            <summary>Сколько это стоит?</summary>
+            <p>Лендинг от 5 000 ₽, многостраничный сайт от 13 000 ₽, бот от 6 000 ₽. Точную цену называю после брифа и до начала работы.</p>
+          </details>
+          <details>
+            <summary>Какие сроки и что нужно от меня?</summary>
+            <p>Срок называю после брифа, когда видно объём. От Вас: рассказ об услуге и клиентах, цены и фото, если есть. Нет текстов - помогу составить по Вашим ответам.</p>
+          </details>
+          <details>
+            <summary>Что платить сервисам помимо работы?</summary>
+            <p>Tilda: бесплатный план с надписью «Made on Tilda» или от 500 ₽ в месяц при оплате за год, тогда надпись убирается. Salebot для бота: бесплатно до 50 сообщений в сутки или 2 999 ₽ в месяц на тарифе «Бизнес». Сайт на коде: хостинг бесплатный, платить нужно только за домен, если он Вам нужен. Принимать оплату в боте может ИП или самозанятый.</p>
+          </details>
+          <details>
+            <summary>Есть ли отзывы?</summary>
+            <p>Есть первый кейс: сайт для магазина «Живые цветы» в Перми и отзыв его управляющей, он выше на странице. Других пока нет, я только начинаю принимать такие заказы.</p>
+          </details>
+          <details>
+            <summary>Можно ли сначала посмотреть?</summary>
+            <p>Да. Структуру и тексты показываю до сборки, черновик страницы покажу по ссылке до публикации.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- Контакты -->
+    <section class="section section--alt contact" id="kontakty" aria-labelledby="kontakty-title">
+      <div class="wrap">
+        <h2 class="section__title reveal" id="kontakty-title">Расскажите, что нужно</h2>
+        <p class="contact__lead reveal">Пара строк о Вас и задаче, остальное уточню сам.</p>
+        <ul class="pills reveal">
+          <li><a class="pill" href="https://ryauzov-sayty-boty.tilda.ws/page354580909.html#vb-f6y" target="_blank" rel="noopener"><b>Форма заявки
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></b><small>откроется страница на Tilda</small></a></li>
+          <li><a class="pill" href="https://t.me/Ryauzov_Life" target="_blank" rel="noopener"><b>Telegram
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></b><small>канал в Telegram</small></a></li>
+          <li><a class="pill" href="mailto:ryauzov.igor@yandex.ru"><b>Почта
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></b><small>ryauzov.igor@yandex.ru</small></a></li>
+          <li><a class="pill" href="https://kwork.ru/script-programming/55146722/sozdam-telegram-bota-s-priyomom-oplaty-i-avtovydachey-produkta" target="_blank" rel="noopener"><b>Kwork
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></b><small>карточка бота</small></a></li>
+          <!-- ЗАГЛУШКА: когда будет бот в MAX, замените этот <li> на ссылку:
+               <li><a class="pill" href="ССЫЛКА_НА_MAX" target="_blank" rel="noopener"><b>MAX <svg ...стрелка...></svg></b><small>бот в MAX</small></a></li> -->
+          <li><div class="pill pill--soon" role="group" aria-label="MAX, скоро"><b>MAX</b><small>скоро</small></div></li>
+        </ul>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap">
+      <div class="footer__grid">
+        <div>
+          <h4>Исполнитель</h4>
+          <p>Индивидуальный предприниматель</p>
+          <p>Ряузов Игорь Владимирович</p>
+          <p>ИНН 590413802790</p>
+          <p>ОГРНИП 324595800042380</p>
+        </div>
+        <div>
+          <h4>Документы</h4>
+          <ul>
+            <li><a href="https://ryauzov-sayty-boty.tilda.ws/page354580909.html#oferta" target="_blank" rel="noopener">Договор-оферта</a></li>
+            <li><a href="https://ryauzov-sayty-boty.tilda.ws/page354580909.html#privacy" target="_blank" rel="noopener">Политика обработки персональных данных</a></li>
+            <li><a href="https://ryauzov-sayty-boty.tilda.ws/page354580909.html#consent" target="_blank" rel="noopener">Согласие на обработку персональных данных</a></li>
+          </ul>
+        </div>
+      </div>
+      <p class="footer__copy">© 2026 ИП Ряузов И.В. Сайт написан кодом, cookie и счётчики не используются.</p>
+    </div>
+  </footer>
+
+  <script>
+  (() => {
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    // Бегущая строка: вторая копия для бесшовной петли
+    const group = document.querySelector('.marquee__group');
+    if (group) {
+      const copy = group.cloneNode(true);
+      copy.setAttribute('aria-hidden', 'true');
+      group.parentNode.appendChild(copy);
+    }
+
+    // Калькулятор: сайт - выбор одного из двух, бот - любые, но считается один раз
+    const calc = document.getElementById('calc');
+    if (calc) {
+      const opts = [...calc.querySelectorAll('.opt')];
+      const sum = document.getElementById('calc-sum');
+      const hint = document.getElementById('calc-hint');
+      const fmt = (n) => n.toLocaleString('ru-RU').replace(/ /g, ' ') + ' ₽';
+      const refresh = () => {
+        const on = opts.filter(o => o.getAttribute('aria-pressed') === 'true');
+        const site = on.filter(o => o.dataset.group === 'site').reduce((s, o) => s + Number(o.dataset.price), 0);
+        const bot = on.some(o => o.dataset.group === 'bot') ? 6000 : 0;
+        const total = site + bot;
+        if (!total) { sum.textContent = 'выберите'; hint.textContent = 'Отметьте хотя бы один пункт'; return; }
+        sum.textContent = 'от ' + fmt(total);
+        hint.textContent = 'Начальная цена, точную называю после брифа';
+      };
+      opts.forEach(o => o.addEventListener('click', () => {
+        const wasOn = o.getAttribute('aria-pressed') === 'true';
+        if (o.dataset.group === 'site') {
+          opts.filter(x => x.dataset.group === 'site').forEach(x => x.setAttribute('aria-pressed', 'false'));
+          o.setAttribute('aria-pressed', wasOn ? 'false' : 'true');
+        } else {
+          o.setAttribute('aria-pressed', wasOn ? 'false' : 'true');
+        }
+        refresh();
+      }));
+    }
+
+    // Появление блоков при прокрутке
+    const els = document.querySelectorAll('.reveal');
+    if (reduce || !('IntersectionObserver' in window)) {
+      els.forEach(el => el.classList.add('is-in'));
+    } else {
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); } });
+      }, { threshold: 0.15 });
+      els.forEach(el => io.observe(el));
+    }
+    if (reduce) return;
+
+    // Параллакс и рост линии шагов
+    const items = [...document.querySelectorAll('[data-speed]')];
+    const steps = document.getElementById('steps');
+    let ticking = false;
+    const update = () => {
+      const y = window.scrollY;
+      items.forEach(el => el.style.setProperty('--py', (y * parseFloat(el.dataset.speed)).toFixed(1) + 'px'));
+      if (steps) {
+        const r = steps.getBoundingClientRect();
+        const p = Math.min(1, Math.max(0, (window.innerHeight * 0.75 - r.top) / r.height));
+        steps.style.setProperty('--p', p.toFixed(3));
+      }
+      ticking = false;
+    };
+    window.addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } }, { passive: true });
+    window.addEventListener('resize', update);
+    update();
+
+    // Лёгкий наклон фото за курсором
+    const stage = document.getElementById('stage');
+    const tilt = document.getElementById('tilt');
+    if (stage && tilt && window.matchMedia('(hover: hover)').matches) {
+      stage.addEventListener('pointermove', (e) => {
+        const r = stage.getBoundingClientRect();
+        const x = (e.clientX - r.left) / r.width - 0.5;
+        const y = (e.clientY - r.top) / r.height - 0.5;
+        tilt.style.setProperty('--ry', (x * 12).toFixed(1) + 'deg');
+        tilt.style.setProperty('--rx', (-y * 10).toFixed(1) + 'deg');
+      });
+      stage.addEventListener('pointerleave', () => {
+        tilt.style.setProperty('--ry', '0deg');
+        tilt.style.setProperty('--rx', '0deg');
+      });
+    }
+  })();
+  </script>
+</body>
+</html>
